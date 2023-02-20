@@ -1,4 +1,5 @@
 .vscode/*
 .env
 .glitch-assets
-node_modules/
+node_modules/repo_specifications.txt
+.gitignore
