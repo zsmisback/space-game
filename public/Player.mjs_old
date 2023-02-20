@@ -1,0 +1,65 @@
+import { canvasDetails } from './canvasData.mjs';
+class Player {
+    constructor({ id, x, y, score = 0, isMain = false }) {
+        this.speedX = 0;
+        this.speedY = 0;
+        this.width = 40;
+        this.height = 30;
+        this.keys = {};
+        this.id = id;
+        this.x = x;
+        this.y = y;
+        this.score = score;
+        this.isMain = isMain;
+    }
+
+    drawPlayer(context, collectible, allPlayers, ufo) {
+        this.movePlayer(5);
+        this.x += this.speedX;
+        this.y += this.speedY;
+        if (this.isMain) {
+            context.fillStyle = 'black';
+            context.font = `13px 'Press Start 2P'`;
+            context.fillText(this.calculateRank(allPlayers), 560, 32.5);
+            context.drawImage(ufo.mainPlayerUfo, this.x, this.y, this.width, this.height);
+        }
+        else {
+            context.drawImage(ufo.otherPlayerUfo, this.x, this.y, this.width, this.height);
+        }
+        if (this.collision(collectible)) {
+            collectible.destroyedBy = this.id;
+        }
+    }
+    movDirection(dir) {
+        this.keys[dir] = true;
+    }
+    stopDirection(dir) {
+        this.keys[dir] = false;
+    }
+    movePlayer(speed) {
+        this.speedX = 0;
+        this.speedY = 0;
+        if (this.keys["ArrowUp"] || this.keys["w"])
+            this.y - speed <= canvasDetails.fieldMinY ? this.speedY = 0 : this.speedY -= speed;
+        if (this.keys["ArrowDown"] || this.keys["s"])
+            this.y + speed >= canvasDetails.fieldMaxY ? this.speedY = 0 : this.speedY += speed;
+        if (this.keys["ArrowLeft"] || this.keys["a"])
+            this.x - speed <= canvasDetails.fieldMinX ? this.speedX = 0 : this.speedX -= speed;
+        if (this.keys["ArrowRight"] || this.keys["d"])
+            this.x + speed >= canvasDetails.fieldMaxX ? this.speedX = 0 : this.speedX += speed;
+    }
+    
+    collision(item) {
+        if (this.x < item.x + item.width && this.x + this.width > item.x
+            && this.y < item.y + item.height && this.y + this.height > item.y) {
+            return true;
+        }
+        return false;
+    }
+    calculateRank(arr) {
+        const sortByScore = arr.sort((a, b) => b.score - a.score);
+        const mainPlayerRank = (this.score == 0) ? arr.length : sortByScore.findIndex(player => player.id == this.id) + 1;
+        return `Rank: ${mainPlayerRank} / ${arr.length}`;
+    }
+}
+export default Player;

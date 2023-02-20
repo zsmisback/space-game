@@ -1,0 +1,46 @@
+body {
+  margin: 20px;
+}
+
+code {
+  background: #d0d0d5;
+}
+
+canvas {
+  margin: auto;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+#game_end_div{
+  display:none;
+  font-family: "Press Start 2P";
+  color:white;
+}
+
+#ping_div{
+  margin-top: 6px;
+}
+
+#title-field, #ping_div{
+  font-family: "Press Start 2P";
+  text-align: center;
+}
+
+.center {
+  position: fixed;
+  top: 50%;
+  width: 100%;
+  text-align: center;
+  font-size: 18px;
+}
+
+@media (min-width: 800px) {
+  .container {
+    flex-direction: row;
+  }
+}

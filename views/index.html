@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Space Game</title>
+    <meta
+      name="description"
+      content="A multi-player game"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../public/style.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <!-- Temp -->
+    <div id = "fps"></div>
+    <div id="game_end_div" class="center"></div>
+    <div id="title-field"></div>
+    <div class="container">
+      <canvas 
+        ref="game"
+        id="game-window" 
+        width="640" 
+        height="480"
+        style="border:1px solid black;"
+      >
+      </canvas>
+    </div>
+    <div id="ping_div"></div>
+  </body>
+  <script src="../public/game.mjs" type="module"></script>
+</html>
